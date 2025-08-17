@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login-reactive-forms',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './login-reactive-forms.component.html',
   styleUrl: './login-reactive-forms.component.css'
 })
@@ -14,5 +14,11 @@ export class LoginReactiveFormsComponent {
     password: new FormControl('')
   });
 
-  onSubmit() {}
+  onSubmit() {
+    console.log(this.form);
+    const enteredEmail = this.form.value.email;
+    const enteredPassword = this.form.value.password;
+
+    console.log(enteredEmail, enteredPassword);
+  }
 }
