@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { of } from 'rxjs';
 
 function mustContainQuestionMark(control: AbstractControl) {
   if (control.value.includes('?')) {
@@ -7,6 +8,14 @@ function mustContainQuestionMark(control: AbstractControl) {
   }
 
   return { doesNotContainerQuestionMark: true };
+}
+
+function emailIsQuique(control: AbstractControl) {
+  if (control.value !== 'test@example.com') {
+    return of(null);
+  }
+
+  return of({notUnique: true});
 }
 
 @Component({
@@ -19,11 +28,12 @@ function mustContainQuestionMark(control: AbstractControl) {
 export class LoginReactiveFormsComponent {
   form = new FormGroup({
     email: new FormControl('', {
-      validators: [Validators.email, Validators.required]
+      validators: [Validators.email, Validators.required],
+      asyncValidators: [emailIsQuique]
     }),
     password: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(6), mustContainQuestionMark],
-    })
+      validators: [Validators.required, Validators.minLength(6), mustContainQuestionMark]
+    }),
   });
 
   get emailIsInvalid() {
