@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login-reactive-forms',
@@ -8,5 +9,10 @@ import { Component } from '@angular/core';
   styleUrl: './login-reactive-forms.component.css'
 })
 export class LoginReactiveFormsComponent {
+  form = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl('')
+  });
 
+  onSubmit() {}
 }
